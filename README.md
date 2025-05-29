@@ -292,21 +292,21 @@ This process enables communication between a third-party service (such as kubect
    ```
    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/38%20cluster%20autoscaler%20created.PNG" width=800 />
    
-9. Verify that the Cluster Autoscaler pod is running in the correct namespace:
+8. Verify that the Cluster Autoscaler pod is running in the correct namespace:
     
     ```bash
-    kubectl get pod cluster-autoscaler-76d85bc58b-v5xrs -n kube-system
+    kubectl get pod -n kube-system
     ```
     <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/29%20get%20pods.png" width=800 />
     
-10. Verify details of the pod
+9. Verify details of the pod
 
     ```bash
     kubectl get pod cluster-autoescaler-76d85bc58b-v5xrs -n kube-system -o wide
     ```
     <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/39%20cluster%20autoscaler%20pod%20wide.PNG" width=800 />
 
-11. Check logs
+10. Check logs
     ```bash
     kubectl logs cluster-autoescaler-76d85bc58b-v5xrs -n kube-system > autoscaler-logs.txt
     ```
