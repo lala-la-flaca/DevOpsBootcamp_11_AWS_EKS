@@ -320,7 +320,7 @@ This process enables communication between a third-party service (such as kubect
    ```bash
    kubectl apply -f nginx-config.yaml
    ```
-   < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/41%20deploying%20nginx.PNG" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/41%20deploying%20nginx.PNG" width=800 />
    
 3. Verify the pod
 
@@ -333,11 +333,11 @@ This process enables communication between a third-party service (such as kubect
    kubectl get service
    ```
 
-   < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/42%20get%20pod%20and%20service.PNG" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/42%20get%20pod%20and%20service.PNG" width=800 />
 
 5. Verify Access to the application using the loadbalancer
 
-   < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/43%20welcome%20to%20nginx%20page.PNG" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/43%20welcome%20to%20nginx%20page.PNG" width=800 />
   
 6. Edit the deployment file to update the number of replicas:
     * Increase the number of replicas to simulate scaling out. Modifying the number of replicas in the deployment file.
