@@ -168,35 +168,35 @@ Set up a fully managed Kubernetes environment using **Amazon EKS** and deploy a 
 2. Under the Compute section, click Add Node Group.
  This step creates a fleet of EC2 instances (worker nodes) with a shared configuration and a specified number of nodes
 
-< img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/16%20add%20nodegroup.png" width=800 />
+  < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/16%20add%20nodegroup.png" width=800 />
 
-3. Configure the node Group:
+4. Configure the node Group:
     * Enter a name for the EC2 Fleet.
     * Select the IAM role created in the previous step.
-      
+
       <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/17%20create%20a%20node%20grooup%20name%20it%20and%20assign%20role.png" width=800 />
       
-4. Choose the following settings:
+5. Choose the following settings:
    * Select the AMI type.
    * Instance type.
    * the EBS volume size.
      
      <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/18%20configuring%20ec2%20instances.png" width=800 />
      
-5. Configure Scaling Settings:
+6. Configure Scaling Settings:
    * Minimum size: the lowest number of instances that must run.
    * Maximum size: the upper limit when scaling out due to demand.
    * Desired size: the number of instances to maintain under normal conditions.
      
-6. Select the network configuration by selecting the subnets i the VPC
+7. Select the network configuration by selecting the subnets i the VPC
    
    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/19%20allow%20remote%20access%20to%20nodes.png" width=800 />
    
-7. Allow remote access to the nodes.  Select an existing EC2 key pair or create a new one if needed.
+8. Allow remote access to the nodes.  Select an existing EC2 key pair or create a new one if needed.
     
-8. Define remote access settings. Allow remote access from all IP addresses or restrict access using security groups.
+9. Define remote access settings. Allow remote access from all IP addresses or restrict access using security groups.
     
-9. Verify that the worker nodes have been created.
+10. Verify that the worker nodes have been created.
     
     ```bash
     kubectl get nodes
@@ -283,33 +283,34 @@ This process enables communication between a third-party service (such as kubect
     ```bash
     kubectl apply -f cluster-autoscaler-autodiscover.yaml file
     ```
-    < img src="" width=800 />
+    < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/37%20applying%20file%20cluster%20autoscaler%20yaml.PNG" width=800 />
     
 7. Verify the deployment
 
    ```bash
    kubectl get deployment -n kube-system cluster-autoscaler
    ```
-   < img src="" width=800 />
+   < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/38%20cluster%20autoscaler%20created.PNG" width=800 />
    
 9. Verify that the Cluster Autoscaler pod is running in the correct namespace:
     
     ```bash
-    kubectl get pod -n kube-system
+    kubectl get pod cluster-autoscaler-76d85bc58b-v5xrs -n kube-system
     ```
     <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/29%20get%20pods.png" width=800 />
+    
 10. Verify details of the pod
 
     ```bash
     kubectl get pod cluster-autoescaler-76d85bc58b-v5xrs -n kube-system -o wide
     ```
-    < img src="" width=800 />
+    < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/39%20cluster%20autoscaler%20pod%20wide.PNG" width=800 />
 
 11. Check logs
     ```bash
     kubectl logs cluster-autoescaler-76d85bc58b-v5xrs -n kube-system > autoscaler-logs.txt
     ```
-    < img src="" width=800 />
+    < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/40%20logs%20to%20file.PNG" width=800 />
 
 ### Deploying the Nginx app
 1. Download or create the NGINX deployment YAML file.
@@ -319,38 +320,39 @@ This process enables communication between a third-party service (such as kubect
    ```bash
    kubectl apply -f nginx-config.yaml
    ```
-   < img src="" width=800 />
+   < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/41%20deploying%20nginx.PNG" width=800 />
+   
 3. Verify the pod
 
     ```bash
    kubectl get pod
    ```
-5. Verify the service
+4. Verify the service
 
    ```bash
    kubectl get service
    ```
 
-   < img src="" width=800 />
+   < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/42%20get%20pod%20and%20service.PNG" width=800 />
 
-6. Verify Access to the application using the loadbalancer
+5. Verify Access to the application using the loadbalancer
 
-   < img src="" width=800 />
+   < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/43%20welcome%20to%20nginx%20page.PNG" width=800 />
   
-3. Edit the deployment file to update the number of replicas:
+6. Edit the deployment file to update the number of replicas:
     * Increase the number of replicas to simulate scaling out. Modifying the number of replicas in the deployment file.
 
       ```bash
       kubectl edit deployment nginx
       kubectl get nodes
       ```
-      <img src="" width=800 />
+      <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/44%20get%20pods%20more%20nodes%20availb.PNG" width=800 />
       
     * Decrease the number of replicas to simulate scaling in.
       
       <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/30%20increasing%20the%20number%20of%20deployment%20eplicas.png" width=800 />
       
-4. Observe how the LoadBalancer responds to changes in resource demand by automatically adjusting the number of running pods.
+7. Observe how the LoadBalancer responds to changes in resource demand by automatically adjusting the number of running pods.
   
 
 
