@@ -168,15 +168,15 @@ Set up a fully managed Kubernetes environment using **Amazon EKS** and deploy a 
 2. Under the Compute section, click Add Node Group.
  This step creates a fleet of EC2 instances (worker nodes) with a shared configuration and a specified number of nodes
 
-  < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/16%20add%20nodegroup.png" width=800 />
+  <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/16%20add%20nodegroup.png" width=800 />
 
-4. Configure the node Group:
+3. Configure the node Group:
     * Enter a name for the EC2 Fleet.
     * Select the IAM role created in the previous step.
 
-      <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/17%20create%20a%20node%20grooup%20name%20it%20and%20assign%20role.png" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/17%20create%20a%20node%20grooup%20name%20it%20and%20assign%20role.png" width=800 />
       
-5. Choose the following settings:
+4. Choose the following settings:
    * Select the AMI type.
    * Instance type.
    * the EBS volume size.
