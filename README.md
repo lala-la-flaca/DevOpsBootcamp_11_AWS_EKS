@@ -1,6 +1,6 @@
 # AWS EKS
 ## 📦 Demo 1
-This demo is part of **Module 11: Kubernetes on AWS (EKS)** in the **TWN DevOps Bootcamp**. The objective is to provision a production-grade **Amazon EKS cluster** with a managed **Node Group**, enabling scalable Kubernetes workloads on AWS.
+This demo is part of **Module 11: Kubernetes on AWS (EKS)** in the **TWN DevOps Bootcamp**. The goal is to manually create a **Kubernetes cluster** using **Amazon Elastic Kubernetes Service (EKS)** and deploy a **Managed Node Group** using the AWS Console.
 
 ## 🚀 Technologies Used
 - **Amazon EKS**: Amazon Elastic Kubernetes Service.
