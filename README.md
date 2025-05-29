@@ -103,10 +103,22 @@ This role allows communication between the third-party service, in this case, ku
 10. Select the Identity Provider just created.
 11. Set the audience.
 
-### AutoScaling Group and AutoSclaer YAML file.
+### AutoScaling Group and AutoScaler YAML file.
 1. Go to the EC2 menu and under the AutoScaling Goup select the Autosclaing group created.
 2. The tag section indicates the tags used in the cluster.
-3. Get the deployment information for the 
+3. Get the sutoscaler-yaml file.
+4. Open the file and modify the ServiceAccount information to set the EKSServiceAccountRole
+5. Modify the deployment section to add the cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+6. Modify the deployment section with the cluster name and add thefollowinf options.
+7. Modify the container image used and its tag to match the kubernetes version used by the cluster and latest tag.
+9. Apply the autoscaler yaml file.
+10. Verify the running pods in the namespace
+
+### Deploying the Nginx app
+1. Get the Deployment yaml file.
+2. Apply the deployment file.
+3. Edit the deployment file to increase  and decrease the number of replicas, and see how the loadbalancer scales up and down acordingly the resources needed.
+4. 
 
 
 
