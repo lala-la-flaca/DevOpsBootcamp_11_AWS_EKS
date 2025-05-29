@@ -7,8 +7,8 @@ This demo is part of **Module 11: Kubernetes on AWS (EKS)** in the **TWN DevOps 
 - **Amazon EC2**: Compute Instances used for worker nodes.
 - **I AM**: AWS identity service to manage access and secure permissions.
 - **kubectl**: CLI to interact with Kubernetes.
-- **AWS CLI**:Interface for maneging AWS services
-- **CloudFormation**: To manage VPC template.
+- **AWS CLI**: Interface for managing AWS services
+- **CloudFormation**: To manage the VPC template.
   
 ## 📋 Prerequisites
 - Ensure you have an AWS Account.
@@ -276,7 +276,7 @@ This process enables communication between a third-party service (such as kubect
 <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/28%20updating%20the%20k8%20version%20in%20the%20file%20iwth%20the%20tag%20which%20is%20found%20inthe%20%20github%20repot.png" width=800 />
 
   * Add the ENV variable:
-    < img src="" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/36%20adding%20env%20variable%20to%20define%20regiion.PNG" width=800 />
      
 6. Apply the modified YAML file using kubectl:
     
