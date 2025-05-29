@@ -281,7 +281,7 @@ This process enables communication between a third-party service (such as kubect
 6. Apply the modified YAML file using kubectl:
     
     ```bash
-    kubectl apply -f cluster-autoscaler-autodiscover.yaml file
+    kubectl apply -f cluster-autoscaler-autodiscover.yaml
     ```
     <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/37%20applying%20file%20cluster%20autoscaler%20yaml.PNG" width=800 />
     
