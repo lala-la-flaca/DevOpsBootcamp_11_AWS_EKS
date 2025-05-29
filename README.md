@@ -323,16 +323,13 @@ This process enables communication between a third-party service (such as kubect
    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/41%20deploying%20nginx.PNG" width=800 />
    
 3. Verify the pod
-
     ```bash
    kubectl get pod
    ```
 4. Verify the service
-
    ```bash
    kubectl get service
    ```
-
    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/42%20get%20pod%20and%20service.PNG" width=800 />
 
 5. Verify Access to the application using the loadbalancer
@@ -346,11 +343,10 @@ This process enables communication between a third-party service (such as kubect
       kubectl edit deployment nginx
       kubectl get nodes
       ```
-      <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/44%20get%20pods%20more%20nodes%20availb.PNG" width=800 />
+  <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/44%20get%20pods%20more%20nodes%20availb.PNG" width=800 />
       
     * Decrease the number of replicas to simulate scaling in.
-      
-      <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/30%20increasing%20the%20number%20of%20deployment%20eplicas.png" width=800 />
+<img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/30%20increasing%20the%20number%20of%20deployment%20eplicas.png" width=800 />
       
 7. Observe how the LoadBalancer responds to changes in resource demand by automatically adjusting the number of running pods.
   
