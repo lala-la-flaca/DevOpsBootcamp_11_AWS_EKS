@@ -34,46 +34,73 @@ Set up a fully managed Kubernetes environment using **Amazon EKS** and deploy a 
 
 <img src=""/>
 
+
 ## ⚙️ Project Configuration
-### Creating IM Role for EKS Cluster
-1. Access AWS console.
-2. Search for the IAM service and navigate to the Roles option.
-3. Click Create Role.
-4. Configure the Role setting the trusted entity type and the use case. In this case, the trust entity is an AWS Service. The use case is for the EKS cluster.
-5. Click Create
+### Creating an IM Role for the EKS Cluster
+1. Open the AWS console.
+2. In the search bar, type IAM, and select Roles.
+3. Select Create Role.
+4. Under Trusted entity type, choose AWS service.
+5. For use case, select Elastic Kubernetes Service (EKS).
+6. Follow the prompts to complete the configuration.
+7. Select Create Role to finish.
+
+
 
 ### Using CloudFormation Template (IaC) to Create the VPC
-1. Search For the CloudFormation service.
-2. Click Create stack and choose standard configuration.
-3. Prepeare template and specify from Amazon S3 URL. The template used in this example is found in the AWS userguide.
-   [AWS EKS userguide](https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html)
-5. Specify the Stack name and the networking confifuration. For this example we are using the default subnets created by AWS.
-6. Click Create.
-7. This tempate creates 22 resources.
+1. Search for the CloudFormation.
+2. Select Create stack and With new resources (standard).
+3. Under Specify template, choose Amazon S3 URL and enter the template URL from the [AWS EKS userguide](https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html)
+5. Select Next.
+6. Enter a Stack name and specify the required network configuration. For this example, use the default subnets provided by AWS.
+7. Select Next, review the settings, and choose Create stack.
+8. The CloudFormation template creates 22 resources to configure the VPC and its dependencies.
 
 ### Creating EKS Cluster for Control Plane Nodes
-1. Search EKS service.
-2. Click Create EKS Cluster.
-3. In the configuration section, set custom configuration, name the custer and set the role previously created.
-4. Configure the Cluster Access by allowing Cluster administration access and  selecting the cluster authentication mode as EKS API and ConfigMap.
-5. In the Networking section, select the VPC, subnets and security group created with CloudFormation.
-6. Select the Cluster Endpoint Access. The best practice is to select public and private. This allows to connec to access the endpoint outside of the VPC, and the internal resources can access privatey from the VPC.
+1. Navigate to the EKS service.
+2. Select Create EKS Cluster.
+3. In the configuration section:
+     * Choose custom configuration.
+     * Enter a name for the cluster.
+     * Select the IAM role previously created.
+5. In the Cluster access section:
+     * Enable Cluster Administration access.
+     * Set the authentication mode to EKS API and ConfirMap.
+7. In the Networking section:
+     * Choose the VPC, subnets, and security group created with the CloudFormation template.
+9. In the cluster endpoint access section:
+    * Select Public and private access: This option allows you to access the endpoint from outside  the VPC while also enabling private access within the VPC resources.
 
 ### Getting the config file to connect our kubctl with the EKS Cluster.
-1. Go to the CLI and use aws configure list to list the configuration details.
-2. Create the kubeconfig file locally. This file contains the cluster information to be able to access the cluster using aws eks update-kubeconfig <cluster name>:
+1. In the terminal, run the following command to list the AWS configuration details.
+2. Create the local kubeconfig file to enable access to your EKS cluster:
    ```bash
    aws eks update-kubeconfig eks-cluster-test
    ```
-3. Verify the kubeconfig file.
-4. Verify the namespaces that were created.
-5. Verify the cluster information.
+3. Verify the kubeconfig file was created successfully.
+   ```bash
+   cat ~/.kube/config
+   ```
+5. List the namespaces in the cluster
+   ```bash
+   kubectl get namespaces
+   ```
+7. Confirm that kubectl is correctly connected to EKS by retrieving cluster information.
+   ```bash
+   kubectl cluster-info
+   ```
 
 ### Creating Role for Worker Nodes (kubelet)
-1. Navigate to the IAM service and go to the role section.
-2. Create a new role.
-3. Select AWS service as the trusted entity type and the use case EC2. We are create the role to allow the EC2 instances (worker nodes) to vommunicate with AWS services, EKS cluster.
-4. We add  permissions to the role: AmazonEKSWorkerNodePolicy, AmazonEC2ContainerRegistryReadOnly, AmazonEKS_CNI_Policy.
+1. In the AWS console, open the I AM service and select Roles.
+2. Click Create Role.
+3. For the trusted entity type, select AW service.
+4. For the use case, select EC2. This role allows worker node EC2 instances to communicate with AWS services and the EKS cluster.
+5. Attach the following policies to grant necessary permissions:
+   * AmazonEKSWorkerNodePolicy
+   * AmazonEC2ContainerRegistryReadOnly
+   * AmazonEKS_CNI_Policy
+6. Click Next, review the configuration, name the role (EKSWorkerNodeRole), and create it.
+
 
 ### Creating NodeGroup
 1. Navigate to the EKS cluster just created.
