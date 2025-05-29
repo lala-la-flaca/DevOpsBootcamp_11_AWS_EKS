@@ -98,27 +98,27 @@ This role allows communication between the third-party service, in this case, ku
 5. Select the provider details: OpenID Connect, and set the privder URL. The provider URL is found in the EKS cluster in the overview section, under OpenID Connect Provider URL
 6. Set the audience to sts.amazonaws.com
 7. Create.
-8. Go to IAM, under the section roles and create a new role.
-9. Select the Web Identity, this allow the thir dparty srvice to assume this role and have access to our cluster.
+8. Go to IAM, under the section Roles, and create a new role.
+9. Select the Web Identity, this allows the third-party service to assume this role and has access to our cluster.
 10. Select the Identity Provider just created.
 11. Set the audience.
 
 ### AutoScaling Group and AutoScaler YAML file.
-1. Go to the EC2 menu and under the AutoScaling Goup select the Autosclaing group created.
+1. Go to the EC2 menu and under the AutoScaling Group select the AutoScaling group created.
 2. The tag section indicates the tags used in the cluster.
 3. Get the sutoscaler-yaml file.
 4. Open the file and modify the ServiceAccount information to set the EKSServiceAccountRole
 5. Modify the deployment section to add the cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
-6. Modify the deployment section with the cluster name and add thefollowinf options.
-7. Modify the container image used and its tag to match the kubernetes version used by the cluster and latest tag.
+6. Modify the deployment section with the cluster name and add the following options.
+7. Modify the container image used and its tag to match the Kubernetes version used by the cluster and the latest tag.
 9. Apply the autoscaler yaml file.
 10. Verify the running pods in the namespace
 
 ### Deploying the Nginx app
 1. Get the Deployment yaml file.
 2. Apply the deployment file.
-3. Edit the deployment file to increase  and decrease the number of replicas, and see how the loadbalancer scales up and down acordingly the resources needed.
-4. 
+3. Edit the deployment file to increase  and decrease the number of replicas, and see how the loadbalancer scales up and down according to the resources needed.
+   
 
 
 
