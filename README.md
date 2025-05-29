@@ -103,32 +103,52 @@ Set up a fully managed Kubernetes environment using **Amazon EKS** and deploy a 
 
 
 ### Creating NodeGroup
-1. Navigate to the EKS cluster just created.
-2. Go to the Compute section under the NodeGroup Section, and click Add Node group. This allows us to create a fleet of EC2 instances all using the same configuration for the workers and set the number of workers that we need.
-3. Configure the node Group add the Fleet EC2 Name, set the IAM role which was created in the previos step.
-4. Select the AMI type, instance type and the EBS size.
-5. Set the Node Group Scalig configuration. This create the autoscaling group which allows to scale up or scale down based on the EC2 resoources. The minimum tells the minimum instaces running, the maximum is the maxmium instances allowed when the EC2 resources are max out and we need more instanes, and the desirez size indictaes, the optimium scenario, regular use case we want to have for EC@ instances.
-6. Select the network configuration used for the VPC.
-7. Allow remote access to nodes, select and EC2 key pair or create a new one if needed.
-8. Allow remote access in this case from all, but you can define security groups to restrict access.
-9. From CLI verify that the worker nodes have been created.
+1. In the AWS Console, open the EKS service and select the cluster you created.
+2. Under the Compute section, click Add Node Group.
+ This step creates a fleet of EC2 instances (worker nodes) with a shared configuration and a specified number of nodes
+3. Configure the node Group:
+    * Enter a name for the EC2 Fleet.
+    * Select the IAM role created in the previous step.
+4. Choose the following settings:
+   * Select the AMI type.
+   * Instance type.
+   * the EBS volume size.
+6. Configure Scaling Settings:
+   * Minimum size: the lowest number of instances that must run.
+   * Maximum size: the upper limit when scaling out due to demand.
+   * Desired size: the number of instances to maintain under normal conditions.
+8. Select the network configuration for the VPC.
+9. Allow remote access to the nodes.  Select an existing EC2 key pair or create a new one if needed.
+10. Define remote access settings. Allow remote access from all IP addresses or restrict access using security groups.
+11. Verify that the worker nodes have been created.
     ```bash
     kubectl get nodes
     ```
 
-### Creating a Idntity Provider to create a role with a Custom Policy
-This role allows communication between the third-party service, in this case, kubectl, and AWS. So we are tellling AWS to trust our
-1. Navigate to IAM service and go to Policies.
-2. Create a new policy and selec JSON.
-3. Copy and paste the policy.
-4. Go to IAM under the  Identity provider add a provider.
-5. Select the provider details: OpenID Connect, and set the privder URL. The provider URL is found in the EKS cluster in the overview section, under OpenID Connect Provider URL
-6. Set the audience to sts.amazonaws.com
-7. Create.
-8. Go to IAM, under the section Roles, and create a new role.
-9. Select the Web Identity, this allows the third-party service to assume this role and has access to our cluster.
-10. Select the Identity Provider just created.
-11. Set the audience.
+### Creating an Identity Provider an Role with a Custom Policy
+This process enables communication between a third-party service (such as kubectl) and AWS by establishing trust through an identity provider.
+
+#### Create a Custom IAM Policy
+1. Navigate to the IAM service, go to Policies.
+2. Click Create policy and select the JSON tab.
+3. Paste your custom policy into the editor.
+4. Click Next, review the policy, and create it.
+
+#### Add an OpenID Connect (OIDC) Identity Provider
+1. In the IAM service, go to Identity providers and click Add provider.
+2. For Provider type, select OpenID Connect (OIDC).
+3. In the Provider URL field, enter the OpenID Connect URL. You can find this URL in your EKS cluster, under the Overview section.
+4. Set the Audience to sts.amazonaws.com.
+5. Click Add provider.
+
+#### Create an IAM Role for Web Identity
+1. In the IAM service, go to Roles and click Create role.
+2. For Trusted entity type, select Web identity.
+3. Choose the Identity provider you just created.
+4. Set the Audience to sts.amazonaws.com.
+5. Proceed to attach the custom policy you created earlier.
+6. Review and create the role.
+
 
 ### AutoScaling Group and AutoScaler YAML file.
 1. Go to the EC2 menu and under the AutoScaling Group select the AutoScaling group created.
