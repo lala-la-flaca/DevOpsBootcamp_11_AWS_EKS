@@ -125,23 +125,23 @@ Set up a fully managed Kubernetes environment using **Amazon EKS** and deploy a 
     kubectl get nodes
     ```
 
-### Creating an Identity Provider an Role with a Custom Policy
+### Creating an Identity Provider and Role with a Custom Policy
 This process enables communication between a third-party service (such as kubectl) and AWS by establishing trust through an identity provider.
 
-#### Create a Custom IAM Policy
+#### 1. Create a Custom IAM Policy
 1. Navigate to the IAM service, go to Policies.
 2. Click Create policy and select the JSON tab.
 3. Paste your custom policy into the editor.
 4. Click Next, review the policy, and create it.
 
-#### Add an OpenID Connect (OIDC) Identity Provider
+#### 2. Add an OpenID Connect (OIDC) Identity Provider
 1. In the IAM service, go to Identity providers and click Add provider.
 2. For Provider type, select OpenID Connect (OIDC).
 3. In the Provider URL field, enter the OpenID Connect URL. You can find this URL in your EKS cluster, under the Overview section.
 4. Set the Audience to sts.amazonaws.com.
 5. Click Add provider.
 
-#### Create an IAM Role for Web Identity
+#### 3. Create an IAM Role for Web Identity
 1. In the IAM service, go to Roles and click Create role.
 2. For Trusted entity type, select Web identity.
 3. Choose the Identity provider you just created.
@@ -151,18 +151,20 @@ This process enables communication between a third-party service (such as kubect
 
 
 ### AutoScaling Group and AutoScaler YAML file.
-1. Go to the EC2 menu and under the AutoScaling Group select the AutoScaling group created.
-2. The tag section indicates the tags used in the cluster.
-3. Get the sutoscaler-yaml file.
-4. Open the file and modify the ServiceAccount information to set the EKSServiceAccountRole
-5. Modify the deployment section to add the cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
-6. Modify the deployment section with the cluster name and add the following options.
-7. Modify the container image used and its tag to match the Kubernetes version used by the cluster and the latest tag.
-9. Apply the autoscaler yaml file.
-10. Verify the running pods in the namespace
+1. In the AWS Management Console, go to the EC2 service.
+2. Under Auto Scaling Groups, select the Auto Scaling group created for the EKS cluster.
+3. In the Tags section, review the tags used by the cluster.
+4. Download the cluster-autoscaler-autodiscover.yaml file
+5. Open the YAML file and do the following:
+   * Update the ServiceAccount section to use the EKSServiceAccountRole.
+   * In the Deployment metadata section, add the following annotation to prevent eviction:
+   * In the container command section, add your cluster name:
+   * Update the container image and tag to match your cluster's Kubernetes version. 
+10. Apply the modified YAML file using kubectl:
+11. Verify that the Cluster Autoscaler pod is running in the correct namespace:
 
 ### Deploying the Nginx app
-1. Get the Deployment yaml file.
+1. Get the deployment YAML file.
 2. Apply the deployment file.
 3. Edit the deployment file to increase  and decrease the number of replicas, and see how the loadbalancer scales up and down according to the resources needed.
    
