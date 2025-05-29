@@ -99,12 +99,10 @@ Set up a fully managed Kubernetes environment using **Amazon EKS** and deploy a 
       
 5. In the Networking section:
      * Choose the VPC, subnets, and security group created with the CloudFormation template.
-       
-       <img src=""https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/7%20add%20networking%20settings%20that%20were%20creating%20with%20cloudformation%20template.png width=800 />
+       <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/7%20add%20networking%20settings%20that%20were%20creating%20with%20cloudformation%20template.png" width=800 />
        
 6. In the cluster endpoint access section:
     * Select Public and private access: This option allows you to access the endpoint from outside  the VPC while also enabling private access within the VPC resources.
-      
       <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/8%20cluster%20endpoint%20access%20public%20rivate.png" width=800 />
 
 ### Getting the config file to connect our kubctl with the EKS Cluster.
@@ -274,21 +272,44 @@ This process enables communication between a third-party service (such as kubect
      <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/27%20adding%20cluster%20name%20nd%20balance%20and%20skip%20nodes%20with%20system%20pods%20false.png" width=800 />
      
    * Update the container image and tag to match your cluster's Kubernetes version.
-     
-     <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/28%20updating%20the%20k8%20version%20in%20the%20file%20iwth%20the%20tag%20which%20is%20found%20inthe%20%20github%20repot.png" width=800 />
+
+<img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/28%20updating%20the%20k8%20version%20in%20the%20file%20iwth%20the%20tag%20which%20is%20found%20inthe%20%20github%20repot.png" width=800 />
+
+  * Add the ENV variable:
+    < img src="" width=800 />
      
 6. Apply the modified YAML file using kubectl:
     
     ```bash
-    kubectl apply -f cluster-autoscaler.yaml file -n kube-system
+    kubectl apply -f cluster-autoscaler-autodiscover.yaml file
     ```
+    < img src="" width=800 />
     
-7. Verify that the Cluster Autoscaler pod is running in the correct namespace:
+7. Verify the deployment
+
+   ```bash
+   kubectl get deployment -n kube-system cluster-autoscaler
+   ```
+   < img src="" width=800 />
+   
+9. Verify that the Cluster Autoscaler pod is running in the correct namespace:
     
     ```bash
     kubectl get pod -n kube-system
     ```
     <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/29%20get%20pods.png" width=800 />
+10. Verify details of the pod
+
+    ```bash
+    kubectl get pod cluster-autoescaler-76d85bc58b-v5xrs -n kube-system -o wide
+    ```
+    < img src="" width=800 />
+
+11. Check logs
+    ```bash
+    kubectl logs cluster-autoescaler-76d85bc58b-v5xrs -n kube-system > autoscaler-logs.txt
+    ```
+    < img src="" width=800 />
 
 ### Deploying the Nginx app
 1. Download or create the NGINX deployment YAML file.
@@ -296,17 +317,37 @@ This process enables communication between a third-party service (such as kubect
 2. Apply the deployment file using kubectl:
    
    ```bash
-   kubectl apply -f .yaml
+   kubectl apply -f nginx-config.yaml
    ```
+   < img src="" width=800 />
+3. Verify the pod
+
+    ```bash
+   kubectl get pod
+   ```
+5. Verify the service
+
+   ```bash
+   kubectl get service
+   ```
+
+   < img src="" width=800 />
+
+6. Verify Access to the application using the loadbalancer
+
+   < img src="" width=800 />
   
 3. Edit the deployment file to update the number of replicas:
-    * Increase the number of replicas to simulate scaling out.
+    * Increase the number of replicas to simulate scaling out. Modifying the number of replicas in the deployment file.
+
+      ```bash
+      kubectl edit deployment nginx
+      kubectl get nodes
+      ```
+      <img src="" width=800 />
       
     * Decrease the number of replicas to simulate scaling in.
       
-      ```bash
-      kubectl edit deployment nginx
-      ```
       <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/30%20increasing%20the%20number%20of%20deployment%20eplicas.png" width=800 />
       
 4. Observe how the LoadBalancer responds to changes in resource demand by automatically adjusting the number of running pods.
