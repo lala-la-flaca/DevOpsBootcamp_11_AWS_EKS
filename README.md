@@ -164,10 +164,13 @@ This process enables communication between a third-party service (such as kubect
 11. Verify that the Cluster Autoscaler pod is running in the correct namespace:
 
 ### Deploying the Nginx app
-1. Get the deployment YAML file.
-2. Apply the deployment file.
-3. Edit the deployment file to increase  and decrease the number of replicas, and see how the loadbalancer scales up and down according to the resources needed.
-   
+1. Download or create the NGINX deployment YAML file.
+2. Apply the deployment file using kubectl:
+3. Edit the deployment file to update the number of replicas:
+    * Increase the number of replicas to simulate scaling out.
+    * Decrease the number of replicas to simulate scaling in.
+4. Observe how the LoadBalancer responds to changes in resource demand by automatically adjusting the number of running pods.
+  
 
 
 
