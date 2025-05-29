@@ -283,14 +283,14 @@ This process enables communication between a third-party service (such as kubect
     ```bash
     kubectl apply -f cluster-autoscaler-autodiscover.yaml file
     ```
-    < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/37%20applying%20file%20cluster%20autoscaler%20yaml.PNG" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/37%20applying%20file%20cluster%20autoscaler%20yaml.PNG" width=800 />
     
 7. Verify the deployment
 
    ```bash
    kubectl get deployment -n kube-system cluster-autoscaler
    ```
-   < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/38%20cluster%20autoscaler%20created.PNG" width=800 />
+   <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/38%20cluster%20autoscaler%20created.PNG" width=800 />
    
 9. Verify that the Cluster Autoscaler pod is running in the correct namespace:
     
@@ -304,13 +304,13 @@ This process enables communication between a third-party service (such as kubect
     ```bash
     kubectl get pod cluster-autoescaler-76d85bc58b-v5xrs -n kube-system -o wide
     ```
-    < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/39%20cluster%20autoscaler%20pod%20wide.PNG" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/39%20cluster%20autoscaler%20pod%20wide.PNG" width=800 />
 
 11. Check logs
     ```bash
     kubectl logs cluster-autoescaler-76d85bc58b-v5xrs -n kube-system > autoscaler-logs.txt
     ```
-    < img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/40%20logs%20to%20file.PNG" width=800 />
+    <img src="https://github.com/lala-la-flaca/DevOpsBootcamp_11_AWS_EKS/blob/main/Img/40%20logs%20to%20file.PNG" width=800 />
 
 ### Deploying the Nginx app
 1. Download or create the NGINX deployment YAML file.
